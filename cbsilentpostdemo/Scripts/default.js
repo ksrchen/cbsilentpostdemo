@@ -23,7 +23,9 @@
         // Disable the submit button to prevent repeated clicks
         $("#completePurchase").prop('disabled', true);
 
-        mpps.processCheckout(form);
+        mpps.processCheckout(form, function () {
+            $("#completePurchase").prop('disabled', true);
+        });
         //var data = form.serialize();
         //data = data.replace(/card_[a-zA-Z0-9_]*=[a-zA-Z0-9]*&?/g, "");
         
