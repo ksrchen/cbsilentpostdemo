@@ -1,7 +1,7 @@
 ﻿mpps = {};
 mpps.processCheckout = function (form) {
     var data = form.serialize();
-    data = data.replace(/card_[a-zA-Z0-9_]*=[a-zA-Z0-9]*&?/g, "");
+    data = data.replace(/card_[a-zA-Z0-9_]*=[a-zA-Z0-9-]*&?/g, "");
 
     $.ajax({
         type: "POST",
