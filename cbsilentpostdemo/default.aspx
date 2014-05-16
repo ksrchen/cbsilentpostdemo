@@ -83,7 +83,7 @@
         <div >
             <label class="fieldName" id="Label1">Premium Searcher</label><input type="text" style="float:right" name="amount" id="productPrice" />
         </div>
-           <input type="submit" id="completePurchase" value="completePurchase" />
+           <input type="submit" id="completePurchase" value="Complete Purchase" />
         </form>
        </div>
        </div>

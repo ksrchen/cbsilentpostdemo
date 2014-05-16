@@ -20,11 +20,11 @@ a {
     font-size: 1.0em;
     text-decoration: none;
 }
-span {
+s/*pan {
     font-weight: bold;
     width: 350px;
     display: inline-block;
-}
+}*/
 input[type=submit] {
     margin-top: 10px;
 }

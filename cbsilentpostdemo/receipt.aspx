@@ -17,8 +17,8 @@
                 IDictionary<string, string> parameters = new Dictionary<string, string>();
         
                 foreach (var key in Request.Form.AllKeys)
-                {                 
-                    Response.Write("<span>" + key + "</span><input type=\"text\" name=\"" + key + "\" size=\"50\" value=\"" + Request.Params[key] + "\" readonly=\"true\"/><br/>");
+                {
+                    Response.Write("<span class='fieldName'>" + key + "</span><input type=\"text\" name=\"" + key + "\" size=\"50\" value=\"" + Request.Params[key] + "\" readonly=\"true\"/><br/>");
                     parameters.Add(key, Request.Params[key]);
                 }
 

@@ -23,29 +23,9 @@
         // Disable the submit button to prevent repeated clicks
         $("#completePurchase").prop('disabled', true);
 
-        //Stripe.card.createToken(form, stripeResponseHandler);
-        //var copy = $.extend(true, {}, form);
-        //$(copy[0]["card_type"]).remove();
-        //$(copy[0]["card_number"]).remove();
-        //$(copy[0]["card_expiry_date"]).remove();
-        //$(copy[0]["card_cvn"]).remove();
-        //var testdata = form.serializeArray();
-        //delete testdata.card_type;
-        //delete testdata.card_number;
-        //delete testdata.card_expiry_date;
-        //remove(testdata, "card_type");
-        //remove(testdata, "card_number");
-        //remove(testdata, "card_expiry_date");
-        //remove(testdata, "card_cvn");
-
-
         var data = form.serialize();
-        data = data.replace(/card_type=[a-zA-Z0-9]*&?/, "");
-        data = data.replace(/card_number=[a-zA-Z0-9]*&?/, "");
-        data = data.replace(/card_expiry_date=[a-zA-Z0-9]*&?/, "");
-        data = data.replace(/card_cvn=[a-zA-Z0-9]*&?/, "");
-        data = data.replace("&&", "&");
-
+        data = data.replace(/card_[a-zA-Z0-9_]*=[a-zA-Z0-9]*&?/g, "");
+        
         $.ajax({
             type: "POST",
             url: "/api/Signing/",
@@ -55,7 +35,7 @@
 
                 form.submit();
             },
-        error: function (e) {
+            error: function (e) {
             }
         });
 
