@@ -24,7 +24,7 @@
         $("#completePurchase").prop('disabled', true);
 
         mpps.processCheckout(form, function () {
-            $("#completePurchase").prop('disabled', true);
+            $("#completePurchase").prop('disabled', false);
         });
         //var data = form.serialize();
         //data = data.replace(/card_[a-zA-Z0-9_]*=[a-zA-Z0-9]*&?/g, "");
