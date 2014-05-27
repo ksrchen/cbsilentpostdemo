@@ -7,8 +7,6 @@
     <script src="Scripts/jquery-2.1.1.js"></script>
     <script src="/Scripts/default.js" type="text/javascript"></script>
     <script src="https://mpps.azurewebsites.net/scripts/mpps.min.js"></script>
-    <%--<script src="http://localhost:54690/scripts/mpps.js"></script>--%>
-
     <title></title>
 </head>
 <body>

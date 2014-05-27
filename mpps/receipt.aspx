@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<<%--fieldset id="response">
+<%--fieldset id="response">
     <legend>Receipt</legend>
     <div>
         <form id="receipt" action="">
