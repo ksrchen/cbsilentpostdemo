@@ -82,7 +82,7 @@ mpps.checkout = function (options, success, error) {
         "signed_date_time": mpps.ISODateString (new Date()),
         //"signed_date_time": "2014-05-27T19:03:48Z",
         "locale": "en",
-        "transaction_type": "authorization",
+        "transaction_type": "sale,create_payment_token",
         "reference_number": "1401217422318",
         "currency": "USD",
         "payment_method": "card",

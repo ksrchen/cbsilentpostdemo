@@ -45,6 +45,7 @@
                     msg.addClass("message-success");
                     msg.append("Your payment has been accepted<br/>");
                     msg.append('Transaction ID:' + event.response.transaction_id + '<br/>');
+                    msg.append('Token:' + event.response.payment_token + '<br/>');
                 }
                 else {
                     var msg = $("#message");
