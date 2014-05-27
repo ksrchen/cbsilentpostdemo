@@ -62,11 +62,6 @@
         <div class="div-cell">
         <h1 class="section-title">Credit Card Information</h1>
          <div id="mpps-payment"></div>
-
-<%--         <label class="fieldName">Type:</label><input type="text" name="card_type" /><br/>
-         <label class="fieldName">Number:</label><input type="text" name="card_number" /><br/>
-         <label class="fieldName">Expiration date:</label><input type="text" name="card_expiry_date" /><br/>
-         <label class="fieldName">CVN:</label><input type="text" name="card_cvn" /><br/>--%>
         </div>
         </div>
         </div>
