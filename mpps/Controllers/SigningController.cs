@@ -14,12 +14,12 @@ namespace mpps.Controllers
         {
             return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
         }
-        public HttpResponseMessage Post([FromBody]FormDataCollection values)
+        public HttpResponseMessage Post([FromBody]IDictionary<string, string> values)
         {
             try
             {
-                var dictionary = values.ToDictionary(p => p.Key, q => q.Value);
-                string signature = security.sign(dictionary);
+               // var dictionary = values.ToDictionary(p => p.Key, q => q.Value);
+                string signature = security.sign(values);
                 return Request.CreateResponse(HttpStatusCode.OK, new { @signature = signature });
             }
             catch (Exception exp)

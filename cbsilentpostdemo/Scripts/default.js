@@ -18,34 +18,52 @@
 
   
     $("#completePurchase").click(function () {
-        var form = $('#payment_form');
+        $("#message").empty();
+
+        var contactInfo = {};
+        $.each($('#contact_form').serializeArray(), function (_, kv) {
+            contactInfo[kv.name] = kv.value;
+        });
+        var referenceNumber = new Date().getMilliseconds();
+        var amount = new Number($("#productPrice").val());
 
         // Disable the submit button to prevent repeated clicks
         $("#completePurchase").prop('disabled', true);
 
-        mpps.processCheckout(form, function () {
-            $("#completePurchase").prop('disabled', false);
-        });
-        //var data = form.serialize();
-        //data = data.replace(/card_[a-zA-Z0-9_]*=[a-zA-Z0-9]*&?/g, "");
-        
-        //$.ajax({
-        //    type: "POST",
-        //    url: "/api/Signing/",
-        //    data : data,
-        //    success: function (e) {
-        //        form.append('<input type="hidden" name="signature" value="' + e.signature + '">');
-
-        //        form.submit();
-        //    },
-        //    error: function (e) {
-        //    }
-        //});
-
-        // Prevent the form from submitting with the default action
+        mpps.checkout(
+            {
+                contactInfo: contactInfo,
+                amount: amount,
+                referenceId: referenceNumber
+            },
+            function (event) {
+                $("#completePurchase").prop('disabled', false);
+                if (event.response.decision == "ACCEPT") {
+                    var msg = $("#message");
+                    msg.empty();
+                    msg.removeClass("message-error");
+                    msg.addClass("message-success");
+                    msg.append("Your payment has been accepted<br/>");
+                    msg.append('Transaction ID:' + event.response.transaction_id + '<br/>');
+                }
+                else {
+                    var msg = $("#message");
+                    msg.empty();
+                    msg.removeClass("message-success");
+                    msg.addClass("message-error");
+                    var msg = $("#message");
+                    msg.append("Fail to process payment<br/>");
+                    msg.append(event.response.message + '<br/>');
+                }
+            },
+            function (event) {
+                $("#completePurchase").prop('disabled', false);
+            }
+        );        
         return false;
     });
    
+    mpps.buildPaymentForm("#mpps-payment");
 
     showAccordion($("#selectProduct"));
     computeAmount();
@@ -95,22 +113,18 @@ function computeAmount() {
     $("#productPrice").val(amount);
 }
 function setDefaults() {
-    $("input[name='transaction_type']").val("authorization");
-    $("input[name='reference_number']").val(new Date().getTime());
-    $("input[name='amount']").val("100.00");
-    $("input[name='currency']").val("USD");
-    $("input[name='payment_method']").val("card");
-    $("input[name='bill_to_forename']").val("John");
-    $("input[name='bill_to_surname']").val("Doe");
-    $("input[name='bill_to_email']").val("null@cybersource.com");
-    $("input[name='bill_to_phone']").val("02890888888");
-    $("input[name='bill_to_address_line1']").val("1 Card Lane");
-    $("input[name='bill_to_address_city']").val("My City");
-    $("input[name='bill_to_address_state']").val("CA");
-    $("input[name='bill_to_address_country']").val("US");
-    $("input[name='bill_to_address_postal_code']").val("94043");
-    $("input[name='card_type']").val("001");
-    $("input[name='card_number']").val("4242424242424242");
-    $("input[name='card_expiry_date']").val("11-2020");
-    $("input[name='card_cvn']").val("120");
+    //$("input[name='transaction_type']").val("authorization");
+    //$("input[name='reference_number']").val(new Date().getTime());
+    //$("input[name='amount']").val("100.00");
+    //$("input[name='currency']").val("USD");
+    //$("input[name='payment_method']").val("card");
+    $("input[name='firstName']").val("John");
+    $("input[name='lastName']").val("Doe");
+    $("input[name='email']").val("null@cybersource.com");
+    $("input[name='phone']").val("02890888888");
+    $("input[name='addressLine1']").val("1 Card Lane");
+    $("input[name='city']").val("My City");
+    $("input[name='state']").val("CA");
+    $("input[name='country']").val("US");
+    $("input[name='postalCode']").val("94043");
 }

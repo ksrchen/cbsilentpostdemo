@@ -37,7 +37,7 @@ input[type=submit] {
 
 .fieldName {
     display:inline-block;
-    width: 220px !important;
+    width: 160px !important;
     vertical-align: top;
 }
 
@@ -121,3 +121,35 @@ input[type=submit] {
     display: table-cell;
     padding:5px;
 }
+.mpps-label
+{
+    display:inline-block;
+    width: 160px !important;
+    vertical-align: top;
+}
+
+.mpps-input
+{
+    /*background-color:red;*/
+}
+.message
+{
+    display:block;
+    width:800px;
+    text-align:center;
+}
+.message-error {
+    clear: both;
+    color: #e80c4d;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.message-success {
+    color: #7ac0da;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
