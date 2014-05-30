@@ -30,11 +30,11 @@
         // Disable the submit button to prevent repeated clicks
         $("#completePurchase").prop('disabled', true);
 
-        mpps.checkout(
+        mpps.createPaymentToken(
             {
                 contactInfo: contactInfo,
                 amount: amount,
-                referenceId: referenceNumber
+                referenceNumber: referenceNumber
             },
             function (event) {
                 $("#completePurchase").prop('disabled', false);
