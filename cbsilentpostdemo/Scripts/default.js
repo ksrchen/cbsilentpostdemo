@@ -34,7 +34,8 @@
             {
                 contactInfo: contactInfo,
                 amount: amount,
-                referenceNumber: referenceNumber
+                referenceNumber: referenceNumber,
+                key: '12ade80c09888de'
             },
             function (event) {
                 $("#completePurchase").prop('disabled', false);
@@ -52,13 +53,18 @@
                     msg.empty();
                     msg.removeClass("message-success");
                     msg.addClass("message-error");
-                    var msg = $("#message");
                     msg.append("Fail to process payment<br/>");
                     msg.append(event.response.message + '<br/>');
                 }
             },
-            function (event) {
+            function (error) {
                 $("#completePurchase").prop('disabled', false);
+                var msg = $("#message");
+                msg.empty();
+                msg.removeClass("message-success");
+                msg.addClass("message-error");
+                msg.append("Fail to process payment<br/>");
+                msg.append(error + '<br/>');
             }
         );        
         return false;

@@ -179,8 +179,6 @@ mpps.createPaymentToken = function (options, success, error) {
     mpps.success = success;
     mpps.error = error;
     var data = {
-        "access_key": "2133ed425ed43e63aa8b4fdd6e8ad28a",
-        "profile_id": "LNECOM1",
         "override_custom_receipt_page": mpps.rootUrl + "/receipt.aspx",
         "transaction_uuid": new Date().getTime(),
         "signed_field_names": "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,currency,payment_method,bill_to_forename,bill_to_surname,bill_to_email,bill_to_phone,bill_to_address_line1,bill_to_address_city,bill_to_address_state,bill_to_address_country,bill_to_address_postal_code,override_custom_receipt_page",
@@ -204,35 +202,38 @@ mpps.createPaymentToken = function (options, success, error) {
 
     $.ajax({
         type: "POST",
-        url: mpps.rootUrl + '/api/Signing/',
+        url: mpps.rootUrl + '/api/signing/',
         contentType: 'application/json',
+        headers: {
+            'Authorization': options.key + ':' + mpps.sign({}),
+            'x-timestamp': mpps.ISODateString(new Date())
+        },
         data: JSON.stringify(data),
         success: function (e) {
-            data.signature = e.signature;
-            mpps.buildTokenCreateForm(data);
+            mpps.buildTokenCreateForm(e);
         },
         error: function (xhr, s, ee) {
             if (typeof (mpps.error) == "function") {
-                mpps.error(s, ee);
+                mpps.error(ee);
             }
         }
     });
 }
-
+mpps.sign = function (options) {
+    var hash = CryptoJS.HmacSHA256("Message", "Secret Passphrase");
+    return hash.toString(CryptoJS.enc.Base64);
+}
 mpps.buildTokenCreateForm = function (data) {
-    var cbSilentPostUrl = 'https://testsecureacceptance.cybersource.com/silent/token/create';
-
     var iframe = $('#mpps-payment_frame');
     if (iframe.length) {
         iframe.remove();
     }
     $('body').append('<iframe id="mpps-payment_frame" name="payment_frame" frameborder="0" style="height:0px; width:0px" />');
 
-
     var frame = $("#mpps-payment_frame")[0].contentWindow;
     frame.document.open();
     frame.document.write('<html><head></head><body>');
-    frame.document.write('<form id="mpps-checkout-form" method="post" action="' + cbSilentPostUrl + '">');
+    frame.document.write('<form id="mpps-checkout-form" method="post" action="' + data.url + '">');
     frame.document.write('<input type="hidden" name="access_key" value="' + data.access_key + '"  />');
     frame.document.write('<input type="hidden" name="profile_id" value="' + data.profile_id + '"  />');
     frame.document.write('<input type="hidden" name="override_custom_receipt_page" value="' + data.override_custom_receipt_page + '" />');
