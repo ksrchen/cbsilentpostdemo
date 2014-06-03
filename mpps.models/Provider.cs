@@ -17,8 +17,8 @@ namespace mpps.models
         public Provider()
         {
             this.PaymentTokens = new HashSet<PaymentToken>();
-            this.Profiles = new HashSet<Profile>();
             this.ProviderSettings = new HashSet<ProviderSetting>();
+            this.Profiles = new HashSet<Profile>();
         }
     
         public int ProviderID { get; set; }
@@ -26,8 +26,8 @@ namespace mpps.models
         public int ProviderTypeID { get; set; }
     
         public virtual ICollection<PaymentToken> PaymentTokens { get; set; }
-        public virtual ICollection<Profile> Profiles { get; set; }
         public virtual ProviderType ProviderType { get; set; }
         public virtual ICollection<ProviderSetting> ProviderSettings { get; set; }
+        public virtual ICollection<Profile> Profiles { get; set; }
     }
 }

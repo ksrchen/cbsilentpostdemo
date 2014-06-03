@@ -41,10 +41,10 @@
             <PropertyRef Name="ProfileID" />
           </Key>
           <Property Name="ProfileID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ProfileName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="HostName" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="ProviderID" Type="int" Nullable="false" />
-          <Property Name="ReponseUrl" Type="nvarchar" Nullable="false" MaxLength="300" />
-          <Property Name="ErrorUrl" Type="nvarchar" MaxLength="300" />
+          <Property Name="ProfileKey" Type="nvarchar" Nullable="false" MaxLength="300" />
+          <Property Name="Secret" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Provider">
           <Key>
@@ -128,16 +128,11 @@
       <Schema Namespace="mppsModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="mppsEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="PaymentTokens" EntityType="mppsModel.PaymentToken" />
-          <EntitySet Name="Profiles" EntityType="mppsModel.Profile" />
           <EntitySet Name="Providers" EntityType="mppsModel.Provider" />
           <EntitySet Name="ProviderTypes" EntityType="mppsModel.ProviderType" />
           <AssociationSet Name="FK_PaymentToken_Provider" Association="mppsModel.FK_PaymentToken_Provider">
             <End Role="Provider" EntitySet="Providers" />
             <End Role="PaymentToken" EntitySet="PaymentTokens" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Profile_Provider" Association="mppsModel.FK_Profile_Provider">
-            <End Role="Provider" EntitySet="Providers" />
-            <End Role="Profile" EntitySet="Profiles" />
           </AssociationSet>
           <AssociationSet Name="FK_Provider_ProviderType" Association="mppsModel.FK_Provider_ProviderType">
             <End Role="ProviderType" EntitySet="ProviderTypes" />
@@ -147,6 +142,11 @@
           <AssociationSet Name="FK_ProviderSetting_Provider" Association="mppsModel.FK_ProviderSetting_Provider">
             <End Role="Provider" EntitySet="Providers" />
             <End Role="ProviderSetting" EntitySet="ProviderSettings" />
+          </AssociationSet>
+          <EntitySet Name="Profiles" EntityType="mppsModel.Profile" />
+          <AssociationSet Name="FK_Profile_Provider" Association="mppsModel.FK_Profile_Provider">
+            <End Role="Provider" EntitySet="Providers" />
+            <End Role="Profile" EntitySet="Profiles" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="PaymentToken">
@@ -158,17 +158,6 @@
           <Property Name="ProviderToken" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Provider" Relationship="mppsModel.FK_PaymentToken_Provider" FromRole="PaymentToken" ToRole="Provider" />
         </EntityType>
-        <EntityType Name="Profile">
-          <Key>
-            <PropertyRef Name="ProfileID" />
-          </Key>
-          <Property Name="ProfileID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="HostName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="ProviderID" Type="Int32" Nullable="false" />
-          <Property Name="ProfileKey" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
-          <Property Name="Secret" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Provider" Relationship="mppsModel.FK_Profile_Provider" FromRole="Profile" ToRole="Provider" />
-        </EntityType>
         <EntityType Name="Provider">
           <Key>
             <PropertyRef Name="ProviderID" />
@@ -177,9 +166,9 @@
           <Property Name="ProviderName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="ProviderTypeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PaymentTokens" Relationship="mppsModel.FK_PaymentToken_Provider" FromRole="Provider" ToRole="PaymentToken" />
-          <NavigationProperty Name="Profiles" Relationship="mppsModel.FK_Profile_Provider" FromRole="Provider" ToRole="Profile" />
           <NavigationProperty Name="ProviderType" Relationship="mppsModel.FK_Provider_ProviderType" FromRole="Provider" ToRole="ProviderType" />
           <NavigationProperty Name="ProviderSettings" Relationship="mppsModel.FK_ProviderSetting_Provider" FromRole="Provider" ToRole="ProviderSetting" />
+          <NavigationProperty Name="Profiles" Relationship="mppsModel.FK_Profile_Provider" FromRole="Provider" ToRole="Profile" />
         </EntityType>
         <EntityType Name="ProviderType">
           <Key>
@@ -197,18 +186,6 @@
               <PropertyRef Name="ProviderID" />
             </Principal>
             <Dependent Role="PaymentToken">
-              <PropertyRef Name="ProviderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Profile_Provider">
-          <End Role="Provider" Type="mppsModel.Provider" Multiplicity="1" />
-          <End Role="Profile" Type="mppsModel.Profile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Provider">
-              <PropertyRef Name="ProviderID" />
-            </Principal>
-            <Dependent Role="Profile">
               <PropertyRef Name="ProviderID" />
             </Dependent>
           </ReferentialConstraint>
@@ -247,6 +224,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ProfileID" />
+          </Key>
+          <Property Type="Int32" Name="ProfileID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="HostName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ProviderID" Nullable="false" />
+          <Property Type="String" Name="ProfileKey" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Secret" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Provider" Relationship="mppsModel.FK_Profile_Provider" FromRole="Profile" ToRole="Provider" />
+        </EntityType>
+        <Association Name="FK_Profile_Provider">
+          <End Type="mppsModel.Provider" Role="Provider" Multiplicity="1" />
+          <End Type="mppsModel.Profile" Role="Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderID" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="ProviderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -259,17 +259,6 @@
                 <ScalarProperty Name="PaymentTokenID" ColumnName="PaymentTokenID" />
                 <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
                 <ScalarProperty Name="ProviderToken" ColumnName="ProviderToken" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Profiles">
-            <EntityTypeMapping TypeName="mppsModel.Profile">
-              <MappingFragment StoreEntitySet="Profile">
-                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
-                <ScalarProperty Name="HostName" ColumnName="ProfileName" />
-                <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
-                <ScalarProperty Name="ProfileKey" ColumnName="ReponseUrl" />
-                <ScalarProperty Name="Secret" ColumnName="ErrorUrl" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -297,6 +286,17 @@
                 <ScalarProperty Name="SettingName" ColumnName="SettingName" />
                 <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
                 <ScalarProperty Name="ProviderSettingID" ColumnName="ProviderSettingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="mppsModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="Secret" ColumnName="Secret" />
+                <ScalarProperty Name="ProfileKey" ColumnName="ProfileKey" />
+                <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
