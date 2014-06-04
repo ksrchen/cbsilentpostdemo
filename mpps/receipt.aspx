@@ -32,13 +32,13 @@
 </body>
     <script type='text/javascript'>
         <%
-                IDictionary<string, string> parameters = new Dictionary<string, string>();
+                //IDictionary<string, string> parameters = new Dictionary<string, string>();
         
-                foreach (var key in Request.Form.AllKeys)
-                {
-                    //Response.Write("<span class='fieldName'>" + key + "</span><input type=\"text\" name=\"" + key + "\" size=\"50\" value=\"" + Request.Params[key] + "\" readonly=\"true\"/><br/>");
-                    parameters.Add(key, Request.Params[key]);
-                }
+                //foreach (var key in Request.Form.AllKeys)
+                //{
+                //    //Response.Write("<span class='fieldName'>" + key + "</span><input type=\"text\" name=\"" + key + "\" size=\"50\" value=\"" + Request.Params[key] + "\" readonly=\"true\"/><br/>");
+                //    parameters.Add(key, Request.Params[key]);
+                //}
             %>
 
         $(function () {
