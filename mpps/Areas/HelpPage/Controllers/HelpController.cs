@@ -1,9 +1,9 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using mpps.Areas.HelpPage.Models;
+using mpts.Areas.HelpPage.Models;
 
-namespace mpps.Areas.HelpPage.Controllers
+namespace mpts.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

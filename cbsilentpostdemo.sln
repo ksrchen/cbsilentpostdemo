@@ -3,12 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cbsilentpostdemo", "cbsilentpostdemo\cbsilentpostdemo.csproj", "{E4C1E9C3-E666-43E9-9820-256B8A111B9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpps", "mpps\mpps.csproj", "{ED3476B3-F33B-4797-870E-C00F9EB45083}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpts", "mpps\mpts.csproj", "{ED3476B3-F33B-4797-870E-C00F9EB45083}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F3755B02-BDBC-45B1-8CFE-A6536C1D1B80} = {F3755B02-BDBC-45B1-8CFE-A6536C1D1B80}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpps.models", "mpps.models\mpps.models.csproj", "{0EBDD258-5BA6-42B4-AC11-444D7A150195}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpts.models", "mpps.models\mpts.models.csproj", "{0EBDD258-5BA6-42B4-AC11-444D7A150195}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E2334AC6-D727-425A-836A-FD49E5A7B1D9}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E2334A
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpps.domains", "mpps.domains\mpps.domains.csproj", "{F3755B02-BDBC-45B1-8CFE-A6536C1D1B80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpts.domains", "mpps.domains\mpts.domains.csproj", "{F3755B02-BDBC-45B1-8CFE-A6536C1D1B80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mpps.models
+namespace mpts.models
 {
     using System;
     using System.Collections.Generic;

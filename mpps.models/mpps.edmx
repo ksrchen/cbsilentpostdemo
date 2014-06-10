@@ -127,13 +127,8 @@
     <edmx:ConceptualModels>
       <Schema Namespace="mppsModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="mppsEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="PaymentTokens" EntityType="mppsModel.PaymentToken" />
           <EntitySet Name="Providers" EntityType="mppsModel.Provider" />
           <EntitySet Name="ProviderTypes" EntityType="mppsModel.ProviderType" />
-          <AssociationSet Name="FK_PaymentToken_Provider" Association="mppsModel.FK_PaymentToken_Provider">
-            <End Role="Provider" EntitySet="Providers" />
-            <End Role="PaymentToken" EntitySet="PaymentTokens" />
-          </AssociationSet>
           <AssociationSet Name="FK_Provider_ProviderType" Association="mppsModel.FK_Provider_ProviderType">
             <End Role="ProviderType" EntitySet="ProviderTypes" />
             <End Role="Provider" EntitySet="Providers" />
@@ -148,16 +143,12 @@
             <End Role="Provider" EntitySet="Providers" />
             <End Role="Profile" EntitySet="Profiles" />
           </AssociationSet>
+          <EntitySet Name="PaymentTokens" EntityType="mppsModel.PaymentToken" />
+          <AssociationSet Name="FK_PaymentToken_Provider" Association="mppsModel.FK_PaymentToken_Provider">
+            <End Role="Provider" EntitySet="Providers" />
+            <End Role="PaymentToken" EntitySet="PaymentTokens" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="PaymentToken">
-          <Key>
-            <PropertyRef Name="PaymentTokenID" />
-          </Key>
-          <Property Name="PaymentTokenID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="ProviderID" Type="Int32" Nullable="false" />
-          <Property Name="ProviderToken" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Provider" Relationship="mppsModel.FK_PaymentToken_Provider" FromRole="PaymentToken" ToRole="Provider" />
-        </EntityType>
         <EntityType Name="Provider">
           <Key>
             <PropertyRef Name="ProviderID" />
@@ -165,10 +156,10 @@
           <Property Name="ProviderID" Type="Int32" Nullable="false" />
           <Property Name="ProviderName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="ProviderTypeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PaymentTokens" Relationship="mppsModel.FK_PaymentToken_Provider" FromRole="Provider" ToRole="PaymentToken" />
           <NavigationProperty Name="ProviderType" Relationship="mppsModel.FK_Provider_ProviderType" FromRole="Provider" ToRole="ProviderType" />
           <NavigationProperty Name="ProviderSettings" Relationship="mppsModel.FK_ProviderSetting_Provider" FromRole="Provider" ToRole="ProviderSetting" />
           <NavigationProperty Name="Profiles" Relationship="mppsModel.FK_Profile_Provider" FromRole="Provider" ToRole="Profile" />
+          <NavigationProperty Name="PaymentTokens" Relationship="mppsModel.FK_PaymentToken_Provider" FromRole="Provider" ToRole="PaymentToken" />
         </EntityType>
         <EntityType Name="ProviderType">
           <Key>
@@ -178,18 +169,6 @@
           <Property Name="ProviderTypeName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Providers" Relationship="mppsModel.FK_Provider_ProviderType" FromRole="ProviderType" ToRole="Provider" />
         </EntityType>
-        <Association Name="FK_PaymentToken_Provider">
-          <End Role="Provider" Type="mppsModel.Provider" Multiplicity="1" />
-          <End Role="PaymentToken" Type="mppsModel.PaymentToken" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Provider">
-              <PropertyRef Name="ProviderID" />
-            </Principal>
-            <Dependent Role="PaymentToken">
-              <PropertyRef Name="ProviderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Provider_ProviderType">
           <End Role="ProviderType" Type="mppsModel.ProviderType" Multiplicity="1" />
           <End Role="Provider" Type="mppsModel.Provider" Multiplicity="*" />
@@ -247,21 +226,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PaymentToken">
+          <Key>
+            <PropertyRef Name="PaymentTokenID" />
+          </Key>
+          <Property Type="Int32" Name="PaymentTokenID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ProviderID" Nullable="false" />
+          <Property Type="String" Name="ProviderToken" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Provider" Relationship="mppsModel.FK_PaymentToken_Provider" FromRole="PaymentToken" ToRole="Provider" />
+        </EntityType>
+        <Association Name="FK_PaymentToken_Provider">
+          <End Type="mppsModel.Provider" Role="Provider" Multiplicity="1" />
+          <End Type="mppsModel.PaymentToken" Role="PaymentToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderID" />
+            </Principal>
+            <Dependent Role="PaymentToken">
+              <PropertyRef Name="ProviderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="mppsModelStoreContainer" CdmEntityContainer="mppsEntities">
-          <EntitySetMapping Name="PaymentTokens">
-            <EntityTypeMapping TypeName="mppsModel.PaymentToken">
-              <MappingFragment StoreEntitySet="PaymentToken">
-                <ScalarProperty Name="PaymentTokenID" ColumnName="PaymentTokenID" />
-                <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
-                <ScalarProperty Name="ProviderToken" ColumnName="ProviderToken" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Providers">
             <EntityTypeMapping TypeName="mppsModel.Provider">
               <MappingFragment StoreEntitySet="Provider">
@@ -297,6 +288,15 @@
                 <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
                 <ScalarProperty Name="HostName" ColumnName="HostName" />
                 <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentTokens">
+            <EntityTypeMapping TypeName="mppsModel.PaymentToken">
+              <MappingFragment StoreEntitySet="PaymentToken">
+                <ScalarProperty Name="ProviderToken" ColumnName="ProviderToken" />
+                <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
+                <ScalarProperty Name="PaymentTokenID" ColumnName="PaymentTokenID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

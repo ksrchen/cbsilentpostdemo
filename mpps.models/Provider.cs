@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mpps.models
+namespace mpts.models
 {
     using System;
     using System.Collections.Generic;
@@ -16,18 +16,18 @@ namespace mpps.models
     {
         public Provider()
         {
-            this.PaymentTokens = new HashSet<PaymentToken>();
             this.ProviderSettings = new HashSet<ProviderSetting>();
             this.Profiles = new HashSet<Profile>();
+            this.PaymentTokens = new HashSet<PaymentToken>();
         }
     
         public int ProviderID { get; set; }
         public string ProviderName { get; set; }
         public int ProviderTypeID { get; set; }
     
-        public virtual ICollection<PaymentToken> PaymentTokens { get; set; }
         public virtual ProviderType ProviderType { get; set; }
         public virtual ICollection<ProviderSetting> ProviderSettings { get; set; }
         public virtual ICollection<Profile> Profiles { get; set; }
+        public virtual ICollection<PaymentToken> PaymentTokens { get; set; }
     }
 }

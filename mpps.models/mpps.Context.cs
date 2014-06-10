@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mpps.models
+namespace mpts.models
 {
     using System;
     using System.Data.Entity;
@@ -25,10 +25,10 @@ namespace mpps.models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<PaymentToken> PaymentTokens { get; set; }
         public DbSet<Provider> Providers { get; set; }
         public DbSet<ProviderType> ProviderTypes { get; set; }
         public DbSet<ProviderSetting> ProviderSettings { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<PaymentToken> PaymentTokens { get; set; }
     }
 }

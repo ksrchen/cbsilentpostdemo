@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace mpps.Controllers
+namespace mpts.Controllers
 {
     public abstract class MppsBaseController : ApiController
     {
