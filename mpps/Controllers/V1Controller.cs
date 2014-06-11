@@ -14,27 +14,29 @@ namespace pts.Controllers
     {
         public HttpResponseMessage Get()
         {
+            List<string> contents = new List<string>();
             var path = HostingEnvironment.MapPath("~/scripts/hmac-sha256.js");
-            var content1 = File.ReadAllText(path);
+            contents.Add(File.ReadAllText(path));
 
             path = HostingEnvironment.MapPath("~/scripts/enc-base64-min.js");
-            var content2 = File.ReadAllText(path);
+            contents.Add(File.ReadAllText(path));
 
 #if DEBUG
-            path = HostingEnvironment.MapPath("~/scripts/mpps.js");
+            path = HostingEnvironment.MapPath("~/scripts/mpps.min.js");
 #else
             path = HostingEnvironment.MapPath("~/scripts/mpps.min.js");
 #endif
-            var content3 = File.ReadAllText(path);
+            contents.Add(File.ReadAllText(path));
 
             var link = Url.Link("DefaultApi", new { controller = "Signing" });
             var uri = new Uri(link);
-            var content4 = String.Format("mpps.rootUrl='{0}';", uri.GetLeftPart(UriPartial.Authority));
+            contents.Add(String.Format("mpps.rootUrl='{0}';", uri.GetLeftPart(UriPartial.Authority)));
+            contents.Add(String.Format("mpps._k='{0}';mpps._s='{1}'", 123456, 982893));
 
             var rsp =  new HttpResponseMessage
             {
                 Content = new StringContent(
-                    content1 + content2 + content3 + content4,
+                    string.Join(" ", contents),
                     Encoding.UTF8,
                     "application/javascript"),                
             };

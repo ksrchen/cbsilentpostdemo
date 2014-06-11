@@ -35,7 +35,7 @@
                 contactInfo: contactInfo,
                 amount: amount,
                 referenceNumber: referenceNumber,
-                key: '12ade80c09888de'
+                key: 'dddgXJF22z9lCvO91baHng=='
             }).then( function (event) {
                 $("#completePurchase").prop('disabled', false);
                 if (event.response.decision == "ACCEPT") {

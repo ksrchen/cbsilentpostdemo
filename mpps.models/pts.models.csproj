@@ -48,59 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mpps.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mpps.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="mpps.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mpps.tt</DependentUpon>
-    </Compile>
-    <Compile Include="mpps.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mpps.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="PaymentToken.cs">
-      <DependentUpon>mpps.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Profile.cs">
-      <DependentUpon>mpps.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider.cs">
-      <DependentUpon>mpps.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProviderSetting.cs">
-      <DependentUpon>mpps.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProviderType.cs">
-      <DependentUpon>mpps.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="mpps.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>mpps.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <Compile Include="profile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="mpps.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>mpps.edmx</DependentUpon>
-      <LastGenOutput>mpps.Context.cs</LastGenOutput>
-    </None>
-    <None Include="mpps.edmx.diagram">
-      <DependentUpon>mpps.edmx</DependentUpon>
-    </None>
-    <None Include="mpps.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>mpps.edmx</DependentUpon>
-      <LastGenOutput>mpps.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

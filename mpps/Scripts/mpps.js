@@ -69,8 +69,7 @@ mpps.createPaymentToken = function (options) {
         url: mpps.rootUrl + '/api/signing/',
         contentType: 'application/json',
         headers: {
-            'Authorization': options.key + ':' + mpps.sign({}),
-            'x-timestamp': mpps.ISODateString(new Date())
+            'Authorization': options.key + ':' + mpps._k +  ":" + mpps.sign('profile='+options.key+','+'key=' + mpps._k)
         },
         data: JSON.stringify(data),
         success: function (e) {
@@ -83,8 +82,8 @@ mpps.createPaymentToken = function (options) {
 
     return mpps.deferred;
 }
-mpps.sign = function (options) {
-    var hash = CryptoJS.HmacSHA256("Message", "Secret Passphrase");
+mpps.sign = function (msg) {
+    var hash = CryptoJS.HmacSHA256(msg, mpps._s);
     return hash.toString(CryptoJS.enc.Base64);
 }
 mpps.buildTokenCreateForm = function (data) {
