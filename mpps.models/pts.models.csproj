@@ -48,12 +48,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Key.cs">
+      <DependentUpon>store.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="profile.cs" />
+    <Compile Include="store.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>store.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="store.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>store.tt</DependentUpon>
+    </Compile>
+    <Compile Include="store.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>store.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="store.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>store.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="store.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>store.edmx</DependentUpon>
+      <LastGenOutput>store.Context.cs</LastGenOutput>
+    </None>
+    <None Include="store.edmx.diagram">
+      <DependentUpon>store.edmx</DependentUpon>
+    </None>
+    <None Include="store.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>store.edmx</DependentUpon>
+      <LastGenOutput>store.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

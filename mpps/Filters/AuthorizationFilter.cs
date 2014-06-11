@@ -32,13 +32,26 @@ namespace pts
                     string profile = SecurityDomain.Decrypt(parts[0]);
                     int.TryParse(profile, out profileId);
 
-                    if (parts.Count() < 2)
+                    if (parts.Count() < 3)
                     {
                         throw new Exception("Invalid authorization header");
                     }
 
-                    var signature = parts[1];
+                    var keyId = pts.domain.SecurityDomain.Decrypt(parts[1]);
+                    var key = KeyStoreManager.getKey(keyId);
 
+                    if (key == null)
+                    {
+                        throw new Exception(string.Format("key not found {0}", keyId));
+                    }
+
+                    var time = key.Date - DateTime.Now;
+                    if (Math.Abs(time.TotalMinutes) > 15)
+                    {
+                        throw new Exception(string.Format("key expired {0}", keyId));
+                    }
+
+                    validateSignature(parts[0], parts[1], key.Value, parts[2]);
                 }
 
                 var controller = actionContext.ControllerContext.Controller as MppsBaseController;
@@ -57,6 +70,16 @@ namespace pts
                 var source = new TaskCompletionSource<HttpResponseMessage>();
                 source.SetResult(actionContext.Response);
                 return source.Task;
+            }
+        }
+
+        private void validateSignature(string profile, string key, string secret, string signature)
+        {
+            var text = string.Format("profile={0},key={1}", profile, key);
+            var hash = pts.domain.SecurityDomain.sign(text, secret);
+            if (hash != signature)
+            {
+                throw new Exception("signature mismatch");
             }
         }
     }

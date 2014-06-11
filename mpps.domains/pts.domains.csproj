@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KeyStore.cs" />
     <Compile Include="IProfileDomain.cs" />
     <Compile Include="ProfileDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

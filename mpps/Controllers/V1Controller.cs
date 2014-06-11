@@ -31,7 +31,12 @@ namespace pts.Controllers
             var link = Url.Link("DefaultApi", new { controller = "Signing" });
             var uri = new Uri(link);
             contents.Add(String.Format("mpps.rootUrl='{0}';", uri.GetLeftPart(UriPartial.Authority)));
-            contents.Add(String.Format("mpps._k='{0}';mpps._s='{1}'", 123456, 982893));
+
+            var key = KeyStoreManager.createNewKey();
+
+            contents.Add(String.Format("mpps._k='{0}';mpps._s='{1}'", 
+                pts.domain.SecurityDomain.Encrypt(key.Id.ToString()), 
+                key.Value));
 
             var rsp =  new HttpResponseMessage
             {
