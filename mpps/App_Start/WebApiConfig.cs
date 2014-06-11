@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace mpts
+namespace pts
 {
     public static class WebApiConfig
     {

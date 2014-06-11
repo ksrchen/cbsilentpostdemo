@@ -7,9 +7,9 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Description;
-using mpts.Areas.HelpPage.Models;
+using pts.Areas.HelpPage.Models;
 
-namespace mpts.Areas.HelpPage
+namespace pts.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

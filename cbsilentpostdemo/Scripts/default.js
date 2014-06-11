@@ -36,8 +36,7 @@
                 amount: amount,
                 referenceNumber: referenceNumber,
                 key: '12ade80c09888de'
-            },
-            function (event) {
+            }).then( function (event) {
                 $("#completePurchase").prop('disabled', false);
                 if (event.response.decision == "ACCEPT") {
                     var msg = $("#message");
@@ -56,8 +55,7 @@
                     msg.append("Fail to process payment<br/>");
                     msg.append(event.response.message + '<br/>');
                 }
-            },
-            function (error) {
+            }).fail(function (error) {
                 $("#completePurchase").prop('disabled', false);
                 var msg = $("#message");
                 msg.empty();
@@ -65,8 +63,7 @@
                 msg.addClass("message-error");
                 msg.append("Fail to process payment<br/>");
                 msg.append(error + '<br/>');
-            }
-        );        
+            });        
         return false;
     });
    

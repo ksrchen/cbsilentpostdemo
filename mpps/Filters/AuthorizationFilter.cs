@@ -6,11 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using mpts.Controllers;
-using mpts.domain;
+using pts.Controllers;
+using pts.domain;
 
 
-namespace mpts
+namespace pts
 {
     public class AuthorizationFilter : FilterAttribute, IAuthorizationFilter
     {

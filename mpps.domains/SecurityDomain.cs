@@ -7,7 +7,7 @@ using System.Text;
 using System.Security.Cryptography;
 using System.Collections.Specialized;
 
-namespace mpts.domain
+namespace pts.domain
 {
     public static class SecurityDomain
     {

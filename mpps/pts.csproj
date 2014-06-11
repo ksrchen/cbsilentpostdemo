@@ -11,7 +11,7 @@
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>mpts</RootNamespace>
+    <RootNamespace>pts</RootNamespace>
     <AssemblyName>mpps</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
@@ -164,6 +164,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\MppsBaseController.cs" />
     <Compile Include="Controllers\SigningController.cs" />
+    <Compile Include="Controllers\V1Controller.cs" />
     <Compile Include="Filters\AuthorizationFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -249,6 +250,8 @@
     <None Include="Properties\PublishProfiles\mpps.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="receipt.aspx" />
+    <Content Include="Scripts\enc-base64-min.js" />
+    <Content Include="Scripts\hmac-sha256.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -301,13 +304,13 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mpps.domains\mpts.domains.csproj">
+    <ProjectReference Include="..\mpps.domains\pts.domains.csproj">
       <Project>{f3755b02-bdbc-45b1-8cfe-a6536c1d1b80}</Project>
-      <Name>mpts.domains</Name>
+      <Name>pts.domains</Name>
     </ProjectReference>
-    <ProjectReference Include="..\mpps.models\mpts.models.csproj">
+    <ProjectReference Include="..\mpps.models\pts.models.csproj">
       <Project>{0ebdd258-5ba6-42b4-ac11-444d7a150195}</Project>
-      <Name>mpts.models</Name>
+      <Name>pts.models</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

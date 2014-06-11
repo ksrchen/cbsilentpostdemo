@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mpts.models
+namespace pts.models
 {
     using System;
     using System.Data.Entity;

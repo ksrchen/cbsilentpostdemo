@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using mpts.models;
+using pts.models;
 
-namespace mpts.domain
+namespace pts.domain
 {
     public interface IProfileDomain
     {

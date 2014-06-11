@@ -1,4 +1,4 @@
-namespace mpts.Areas.HelpPage
+namespace pts.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response
