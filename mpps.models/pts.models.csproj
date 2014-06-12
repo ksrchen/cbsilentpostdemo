@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateTokenResponse.cs" />
+    <Compile Include="CreditCard.cs" />
     <Compile Include="Key.cs">
       <DependentUpon>store.tt</DependentUpon>
     </Compile>

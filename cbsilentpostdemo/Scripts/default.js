@@ -32,20 +32,18 @@
 
         mpps.createPaymentToken(
             {
-                contactInfo: contactInfo,
-                amount: amount,
+                billingContact: contactInfo,
                 referenceNumber: referenceNumber,
-                key: 'dddgXJF22z9lCvO91baHng=='
+                profileKey: 'dddgXJF22z9lCvO91baHng=='
             }).then( function (event) {
                 $("#completePurchase").prop('disabled', false);
-                if (event.response.decision == "ACCEPT") {
+                if (event.response.Status) {
                     var msg = $("#message");
                     msg.empty();
                     msg.removeClass("message-error");
                     msg.addClass("message-success");
                     msg.append("Your payment has been accepted<br/>");
-                    msg.append('Transaction ID:' + event.response.transaction_id + '<br/>');
-                    msg.append('Token:' + event.response.payment_token + '<br/>');
+                    msg.append('Token:' + event.response.Token + '<br/>');
                 }
                 else {
                     var msg = $("#message");
@@ -53,7 +51,7 @@
                     msg.removeClass("message-success");
                     msg.addClass("message-error");
                     msg.append("Fail to process payment<br/>");
-                    msg.append(event.response.message + '<br/>');
+                    msg.append(event.response.Message + '<br/>');
                 }
             }).fail(function (error) {
                 $("#completePurchase").prop('disabled', false);

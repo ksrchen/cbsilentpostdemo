@@ -44,15 +44,15 @@ mpps = ( function ()
             "reference_number": options.referenceNumber,
             "currency": "USD",
             "payment_method": "card",
-            "bill_to_forename": options.contactInfo.firstName,
-            "bill_to_surname": options.contactInfo.lastName,
-            "bill_to_address_city": options.contactInfo.city,
-            "bill_to_address_country": options.contactInfo.country,
-            "bill_to_address_line1": options.contactInfo.addressLine1,
-            "bill_to_address_state": options.contactInfo.state,
-            "bill_to_address_postal_code": options.contactInfo.postalCode,
-            "bill_to_email": options.contactInfo.email,
-            "bill_to_phone": options.contactInfo.phone,
+            "bill_to_forename": options.billingContact.firstName,
+            "bill_to_surname": options.billingContact.lastName,
+            "bill_to_address_city": options.billingContact.city,
+            "bill_to_address_country": options.billingContact.country,
+            "bill_to_address_line1": options.billingContact.addressLine1,
+            "bill_to_address_state": options.billingContact.state,
+            "bill_to_address_postal_code": options.billingContact.postalCode,
+            "bill_to_email": options.billingContact.email,
+            "bill_to_phone": options.billingContact.phone,
         };
 
         $.ajax({
@@ -60,7 +60,7 @@ mpps = ( function ()
             url: rootUrl + '/api/signing/',
             contentType: 'application/json',
             headers: {
-                'Authorization': options.key + ':' + _k +  ":" + sign('profile='+options.key+','+'key=' + _k)
+                'Authorization': options.profileKey + ':' + _k + ":" + sign('profile=' + options.profileKey + ',' + 'key=' + _k)
             },
             data: JSON.stringify(data),
             success: function (e) {

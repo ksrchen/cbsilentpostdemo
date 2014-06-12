@@ -21,9 +21,11 @@ namespace pts.Controllers
         {
             try
             {
+                var rootUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
                 values["access_key"] = Profile.Provider.ProviderSettings.FirstOrDefault(p => p.SettingName == "access_key").SettingValue;
                 values["profile_id"] = Profile.Provider.ProviderSettings.FirstOrDefault(p => p.SettingName == "profile_id").SettingValue;
                 values["url"] = Profile.Provider.ProviderSettings.FirstOrDefault(p => p.SettingName == "tokencreateurl").SettingValue;
+                values["override_custom_receipt_page"] = rootUrl + "/receipt.aspx?profile=" + Profile.ProfileID.ToString();
                 values["signed_date_time"] = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss'Z'");
                 var secret = Profile.Provider.ProviderSettings.FirstOrDefault(p => p.SettingName == "secret").SettingValue;
 
