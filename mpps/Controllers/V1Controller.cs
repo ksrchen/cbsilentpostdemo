@@ -22,7 +22,7 @@ namespace pts.Controllers
             contents.Add(File.ReadAllText(path));
 
 #if DEBUG
-            path = HostingEnvironment.MapPath("~/scripts/mpps.js");
+            path = HostingEnvironment.MapPath("~/scripts/mpps.min.js");
 #else
             path = HostingEnvironment.MapPath("~/scripts/mpps.min.js");
 #endif
@@ -30,11 +30,10 @@ namespace pts.Controllers
 
             var link = Url.Link("DefaultApi", new { controller = "Signing" });
             var uri = new Uri(link);
-            contents.Add(String.Format("mpps.rootUrl='{0}';", uri.GetLeftPart(UriPartial.Authority)));
-
             var key = KeyStoreManager.createNewKey();
 
-            contents.Add(String.Format("mpps._k='{0}';mpps._s='{1}'", 
+            contents.Add(String.Format("mpps.init('{0}','{1}','{2}');", 
+                uri.GetLeftPart(UriPartial.Authority),
                 pts.domain.SecurityDomain.Encrypt(key.Id.ToString()), 
                 key.Value));
 
