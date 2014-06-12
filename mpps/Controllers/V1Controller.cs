@@ -22,7 +22,7 @@ namespace pts.Controllers
             contents.Add(File.ReadAllText(path));
 
 #if DEBUG
-            path = HostingEnvironment.MapPath("~/scripts/mpps.min.js");
+            path = HostingEnvironment.MapPath("~/scripts/mpps.js");
 #else
             path = HostingEnvironment.MapPath("~/scripts/mpps.min.js");
 #endif

@@ -24,7 +24,7 @@ namespace pts.Controllers
                 values["access_key"] = Profile.Provider.ProviderSettings.FirstOrDefault(p => p.SettingName == "access_key").SettingValue;
                 values["profile_id"] = Profile.Provider.ProviderSettings.FirstOrDefault(p => p.SettingName == "profile_id").SettingValue;
                 values["url"] = Profile.Provider.ProviderSettings.FirstOrDefault(p => p.SettingName == "tokencreateurl").SettingValue;
-
+                values["signed_date_time"] = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss'Z'");
                 var secret = Profile.Provider.ProviderSettings.FirstOrDefault(p => p.SettingName == "secret").SettingValue;
 
                 values["signature"] = SecurityDomain.sign(values, secret);

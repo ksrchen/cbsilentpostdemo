@@ -47,7 +47,6 @@ mpps.createPaymentToken = function (options) {
         "transaction_uuid": new Date().getTime(),
         "signed_field_names": "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,currency,payment_method,bill_to_forename,bill_to_surname,bill_to_email,bill_to_phone,bill_to_address_line1,bill_to_address_city,bill_to_address_state,bill_to_address_country,bill_to_address_postal_code,override_custom_receipt_page",
         "unsigned_field_names": "card_type,card_number,card_expiry_date,card_cvn",
-        "signed_date_time": mpps.ISODateString(new Date()),
         "locale": "en",
         "transaction_type": "create_payment_token",
         "reference_number": options.referenceNumber,
