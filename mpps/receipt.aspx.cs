@@ -67,6 +67,10 @@ namespace cbsilentpostdemo
                 response.Status = false;
                 response.Message = data["message"];
                 response.ReasonCode = data["reason_code"];
+                if (data.ContainsKey("invalid_fields"))
+                {
+                    response.Message += response.Message + ".  " + data["invalid_fields"];
+                }
             }
             return response;
         }

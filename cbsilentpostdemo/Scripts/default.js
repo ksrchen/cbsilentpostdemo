@@ -65,7 +65,12 @@
         return false;
     });
    
-    mpps.buildPaymentForm("#mpps-payment");
+    mpps.buildPaymentForm("#mpps-payment").then(function () {
+        $("input[data-mpps='card_type']").val("001");
+        $("input[data-mpps='card_number']").val("4242424242424242");
+        $("input[data-mpps='card_expiry_date']").val("11-2020");
+        $("input[data-mpps='card_cvn']").val("120");
+    });
 
     showAccordion($("#selectProduct"));
     computeAmount();

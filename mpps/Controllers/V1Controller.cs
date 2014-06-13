@@ -21,6 +21,9 @@ namespace pts.Controllers
             path = HostingEnvironment.MapPath("~/scripts/enc-base64-min.js");
             contents.Add(File.ReadAllText(path));
 
+            path = HostingEnvironment.MapPath("~/scripts/masked.input.min.js");
+            contents.Add(File.ReadAllText(path));
+
 #if DEBUG
             path = HostingEnvironment.MapPath("~/scripts/mpps.min.js");
 #else

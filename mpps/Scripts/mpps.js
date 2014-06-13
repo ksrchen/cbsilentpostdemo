@@ -8,6 +8,13 @@
         }
     }
 });
+Number.prototype.pad = function (size) {
+    var s = String(this);
+    if (typeof (size) !== "number") { size = 2; }
+
+    while (s.length < size) { s = "0" + s; }
+    return s;
+}
 
 mpps = ( function () 
 {
@@ -17,17 +24,44 @@ mpps = ( function ()
     function processMessage (event) {
         deferred.resolve(event.data);
     };
-    function buildPaymentForm (selector) {
+    function buildPaymentForm(selector) {
+        var cards = [
+            { value: '001', text: 'Visa' },
+            { value: '002', text: 'MasterCard' },
+            { value: '003', text: 'American Express' },
+            { value: '004', text: 'Discover' }];
+                
         var done = $.Deferred();
-        $(selector).append('<div class="mpps-input-group"><label class="mpps-label mpps-label-card-type">Type:</label><input type="text" class="mpps-input mpps-input-card-type" data-mpps="card_type"></div>');
+        $(selector).append('<div class="mpps-input-group"><label class="mpps-label mpps-label-card-type">Type:</label><select class="mpps-input mpps-input-card-type" data-mpps="card_type"></div>');
         $(selector).append('<div class="mpps-input-group"><label class="mpps-label mpps-label-card-number">Number:</label><input type="text" class="mpps-input mpps-input-card-number" data-mpps="card_number" /></div>');
-        $(selector).append('<div class="mpps-input-group"><label class="mpps-label mpps-label-card-expiry-date">Expiration date:</label><input type="text" class="mpps-input mpps-input-card-expiry-date" data-mpps="card_expiry_date" /></div>');
+        $(selector).append('<div class="mpps-input-group"><label class="mpps-label mpps-label-card-expiry-date">Expiration date:</label><select class="mpps-input mpps-input-card-expiry-month" data-mpps="card_expiry_month"/>&nbsp;<select class="mpps-input mpps-input-card-expiry-year" data-mpps="card_expiry_year"/></div>');
         $(selector).append('<div class="mpps-input-group"><label class="mpps-label mpps-label-card-cvn">CVN:</label><input type="text" class="mpps-input mpps-input-card-cvn" data-mpps="card_cvn" /></div>');
 
-        $("input[data-mpps='card_type']").val("001");
-        $("input[data-mpps='card_number']").val("4242424242424242");
-        $("input[data-mpps='card_expiry_date']").val("11-2020");
-        $("input[data-mpps='card_cvn']").val("120");
+        $.each(cards, function (i, item) {
+            $('select[data-mpps="card_type"').append($('<option>', {
+                value: item.value,
+                text: item.text
+            }));
+        });
+
+        for (i = 1; i <= 12; i++) {
+            $('select[data-mpps="card_expiry_month"').append($('<option>', {
+                value: i.pad(),
+                text: i.pad()
+            }));
+        };
+
+        var year = (new Date()).getFullYear();
+        for (i = year; i <= year+10; i++) {
+            $('select[data-mpps="card_expiry_year"').append($('<option>', {
+                value: String(i),
+                text: String(i)
+            }));
+        };
+
+        $('input[data-mpps="card_number"]').mask('9999999999999999');
+        $('input[data-mpps="card_cvn"]').mask('999');
+
         done.resolve();
         return done.promise();
     }
@@ -110,9 +144,9 @@ mpps = ( function ()
         frame.document.write('<input type="hidden" name="bill_to_address_country" value="' + data.bill_to_address_country + '" />');
         //frame.document.write('<input type="hidden" name="bill_to_address_line2" value="' + data.bill_to_address_line2 + '" />');
         frame.document.write('<input type="hidden" name="bill_to_address_postal_code"" value="' + data.bill_to_address_postal_code + '" />');
-        frame.document.write('<input type="hidden" name="card_type" value="' + $("input[data-mpps='card_type']").val() + '" />');
+        frame.document.write('<input type="hidden" name="card_type" value="' + $("select[data-mpps='card_type']").val() + '" />');
         frame.document.write('<input type="hidden" name="card_number" value="' + $("input[data-mpps='card_number']").val() + '" />');
-        frame.document.write('<input type="hidden" name="card_expiry_date" value="' + $("input[data-mpps='card_expiry_date']").val() + '" />');
+        frame.document.write('<input type="hidden" name="card_expiry_date" value="' + $("select[data-mpps='card_expiry_month']").val() + '-' + $("select[data-mpps='card_expiry_year']").val() + '" />');
         frame.document.write('<input type="hidden" name="card_cvn" value="' + $("input[data-mpps='card_cvn']").val() + '" />');
         frame.document.write('<input type="hidden" name="signature" value="' + data.signature + '">');
         frame.document.write('</form>');
