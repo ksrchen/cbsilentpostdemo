@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cbsilentpostdemo", "cbsilentpostdemo\cbsilentpostdemo.csproj", "{E4C1E9C3-E666-43E9-9820-256B8A111B9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pts.client", "cbsilentpostdemo\pts.client.csproj", "{E4C1E9C3-E666-43E9-9820-256B8A111B9B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pts", "mpps\pts.csproj", "{ED3476B3-F33B-4797-870E-C00F9EB45083}"
 	ProjectSection(ProjectDependencies) = postProject
