@@ -68,6 +68,18 @@ mpps = ( function ()
     function createPaymentToken(options) {
         deferred = $.Deferred();
 
+        var number = $("input[data-mpps='card_number']").val()
+        if (!number.length > 0) {
+            deferred.reject('credit card number is required');
+            return deferred;
+        }
+
+        var cvn = $("input[data-mpps='card_cvn']").val();
+        if (!cvn.length > 0) {
+            deferred.reject('CVN is required');
+            return deferred;
+        }
+
         var data = {
             "override_custom_receipt_page": rootUrl + "/receipt.aspx",
             "transaction_uuid": new Date().getTime(),
