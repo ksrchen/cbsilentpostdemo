@@ -3,14 +3,14 @@
 <html>
 <head>
     <title></title>
-    <script src="/Scripts/jquery-1.8.2.min.js"></script>
+    <%--<script src="/Scripts/jquery-1.8.2.min.js"></script>--%>
 </head>
 <body>
 </body>
     <script type='text/javascript'>       
-        $(function () {
+       window.onload = function () {
             window.parent.window.postMessage({ type: 'response', response: <%= Newtonsoft.Json.JsonConvert.SerializeObject(Response) %> }, '*');
-        });
+        };
 </script>
 </html>
 
